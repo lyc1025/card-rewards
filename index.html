@@ -41,6 +41,9 @@
     .best-badge { position: absolute; top: -10px; left: 14px; background: #16a34a; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
     .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
     .card-name { font-size: 16px; font-weight: 700; }
+    .card-name a { color: #2b56d4; text-decoration: none; border-bottom: 1px dashed #9bb0ec; }
+    .card-name a:hover { color: #1b3aa0; border-bottom-style: solid; }
+    .card-name a .ext { font-size: 11px; opacity: .7; }
     .card-reward { font-size: 20px; font-weight: 800; color: #16a34a; white-space: nowrap; }
     .card .meta { font-size: 13px; color: #4b5563; margin-top: 6px; }
     .card .meta b { color: #b45309; }
@@ -67,21 +70,21 @@
     // ============================================================
     var ALL = [
       // ---------- 行動支付 ----------
-      { scenario:'行動支付', channel:'LINE Pay', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選只有 3.5%', note:'需在玉山 Wallet 升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給 LINE Pay；基本 1% 無上限', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'LINE Pay', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'需在玉山 Wallet 升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給 LINE Pay；基本 1% 無上限', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'LINE Pay', card:'台新 Richart', display:'最高 3.8%（LEVEL2）', value:3.8, cap:'依方案', note:'需領券，LINE Pay 領券版最高 2.3%；新戶 60 天內享 LEVEL2 3.8%', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'LINE Pay', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）；自動加值另計 3%（每期刷 3,333 元）', note:'需大戶等級＋綁指定任務即達；免切換', updated:'2026-06-07' },
 
-      { scenario:'行動支付', channel:'街口支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選只有 3.5%', note:'需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給街口；基本 1% 無上限', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'街口支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給街口；基本 1% 無上限', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'街口支付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級＋綁指定任務；免切換', updated:'2026-06-07' },
 
-      { scenario:'行動支付', channel:'全支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選只有 3.5%', note:'全支付在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'全支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'全支付在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'全支付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級；免切換', updated:'2026-06-07' },
 
-      { scenario:'行動支付', channel:'全盈 PX Pay', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選只有 3.5%', note:'全盈在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'全盈 PX Pay', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'全盈在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'全盈 PX Pay', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級；免切換', updated:'2026-06-07' },
 
       { scenario:'行動支付', channel:'Apple Pay / Google Pay（台灣一般）', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）；自動加值另計 3%（每期刷 3,333 元）', note:'免切換、免想，全通路保底最高', updated:'2026-06-07' },
-      { scenario:'行動支付', channel:'Apple Pay / Google Pay（台灣一般）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）', note:'僅百大指定通路；4.5% 需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務），任意選只有 3.5%；非指定通路只有 1%', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'Apple Pay / Google Pay（台灣一般）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'僅百大指定通路；4.5% 需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務），任意選只有 3.5%；非指定通路只有 1%', updated:'2026-06-07' },
 
       { scenario:'行動支付', channel:'日本 PayPay', card:'玉山熊本熊卡', display:'最高 5%', value:5.0, cap:'有上限（登錄與封頂細節待確認）', note:'日本當地用 PayPay 綁卡', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'日本 PayPay', card:'台新 Richart（台新Pay+）', display:'最高 3.8%', value:3.8, cap:'依活動', note:'台新Pay+ 綁 Richart，日本/韓國，另免 1.5% 手續費', updated:'2026-06-07' },
@@ -90,8 +93,8 @@
       { scenario:'日本消費', channel:'便利商店（7-11/全家/Lawson）', card:'聯邦吉鶴卡', display:'約 7%（綁 Apple/Google Pay）', value:7.0, cap:'行動支付加碼：登錄 1.5% 上限 600 元/月（約刷 NT$40,000）；前月帳單滿 3 萬再 +1% 上限 200 元/月（約刷 NT$20,000）；11 大商店加碼上限 600 元/活動期間', note:'可疊加！日幣 2.5% + 11大商店 3% + Apple/Google Pay 登錄加碼 1.5% ≈ 7%（前月帳單滿 3 萬可到 8%）；新戶再 +3% 最高 11%。單筆需 ≥ 台幣 100；Google Pay 自 2026/4/1 起適用，需純感應（QUICPay 不算）', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'便利商店（7-11/全家/Lawson）', card:'中信 Uniopen', display:'11%（小額）', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元內 11%）', note:'超過 6,250 元部分只有 3%', updated:'2026-06-07' },
 
-      { scenario:'日本消費', channel:'藥妝（松本清/大國等）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（NT$ 計，非日幣）；國外 2% 無上限', note:'大國藥妝、Sugi藥妝 屬幣倍卡精選通路（國外 2% + 4% = 6%）；松本清等其他藥妝只有國外 2%（建議改中信 Uniopen 11% 小額）', updated:'2026-06-07' },
-      { scenario:'日本消費', channel:'藥妝（松本清/大國等）', card:'玉山熊本熊卡', display:'約 8.5%', value:8.5, cap:'指定商店加碼上限 500 元/期（約刷 8,333 元封頂）', note:'日本 2.5% + 指定商店加碼 6%；需登錄 1 次。藥妝指定店：松本清、大國藥妝、SUNDRUG、Cocokara Fine 可開嘉來、鶴羽藥妝（其他藥妝不適用）', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'藥妝（松本清/大國等）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500，非日幣）；國外 2% 無上限', note:'幣倍卡只要是國外實體消費就有 +4% 加碼，日本實體藥妝一律 6%（不分大國／松本清／Sugi／唐吉訶德）；小額也可考慮中信 Uniopen 11%', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'藥妝（松本清/大國等）', card:'玉山熊本熊卡', display:'約 8.5%', value:8.5, cap:'指定商店加碼上限 500 元/期（約刷 8,333 元封頂）', note:'日本 2.5% + 指定商店加碼 6%；需登錄 1 次。官方藥妝指定店僅：松本清、大國藥妝、唐吉訶德（SUNDRUG／Sugi／鶴羽 不適用）', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'藥妝（松本清/大國等）', card:'中信 Uniopen', display:'11%（小額）', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元內）', note:'小額神卡；超過只有 3%', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'量販電器（BIC/Yodobashi/唐吉訶德）', card:'聯邦吉鶴卡', display:'約 7%（綁 Apple/Google Pay）', value:7.0, cap:'行動支付加碼：登錄 1.5% 上限 600 元/月（約刷 NT$40,000）；前月帳單滿 3 萬再 +1% 上限 200 元/月（約刷 NT$20,000）；11 大商店加碼上限 600 元/活動期間', note:'可疊加！日幣 2.5% + 11大商店 3% + Apple/Google Pay 登錄加碼 1.5% ≈ 7%（前月帳單滿 3 萬再 +1% 可到 8%）；新戶再 +3% 最高 11%。Google Pay 自 2026/4/1 起適用，需純感應（QUICPay 不算）', updated:'2026-06-07' },
@@ -114,39 +117,156 @@
       { scenario:'日本消費', channel:'三井 OUTLET / 星野集團', card:'玉山熊本熊卡', display:'約 8.5%', value:8.5, cap:'指定商店加碼上限 500 元/期', note:'日本 2.5% + 指定商店加碼 6%；需登錄 1 次', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'飯店/訂房（Booking/Agoda/Airbnb/Trip.com）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'幸福M「訂房網」場景 6%；國外實體一般 3%', updated:'2026-06-07' },
-      { scenario:'日本消費', channel:'飯店/訂房（Booking/Agoda/Airbnb/Trip.com）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（NT$ 計）；國外 2% 無上限', note:'Booking、Agoda、Hotels、Expedia、Trip.com、Airbnb、Trivago、AsiaYo 屬幣倍卡旅遊精選通路（國外 2% + 4%）', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'飯店/訂房（Booking/Agoda/Airbnb/Trip.com）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）；國外 2% 無上限', note:'Booking、Agoda、Hotels、Expedia、Trip.com、Airbnb、Trivago、AsiaYo 屬幣倍卡旅遊精選通路（國外 2% + 4%）', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'旅遊平台/票券體驗（Klook/KKday/Funnow）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'幸福M「旅遊平台」場景 6%；可訂日本行程/票券/體驗', updated:'2026-06-07' },
-      { scenario:'日本消費', channel:'旅遊平台/票券體驗（Klook/KKday/Funnow）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（NT$ 計）；國外 2% 無上限', note:'Klook、KKday 屬幣倍卡旅遊精選通路（國外 2% + 4%）；Funnow 不一定適用', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'旅遊平台/票券體驗（Klook/KKday/Funnow）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）；國外 2% 無上限', note:'Klook、KKday 屬幣倍卡旅遊精選通路（國外 2% + 4%）；Funnow 不一定適用', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'機票（飛日本航班）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'幸福M「航空」場景（國內外航空）6%', updated:'2026-06-07' },
-      { scenario:'日本消費', channel:'機票（飛日本航班）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（NT$ 計）；國外 2% 無上限', note:'航空公司屬幣倍卡旅遊精選通路（國外 2% + 4%）', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'機票（飛日本航班）', card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）；國外 2% 無上限', note:'航空公司屬幣倍卡旅遊精選通路（國外 2% + 4%）', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'日本當地交通（JR/地鐵/巴士/Suica）', card:'永豐幣倍卡(日幣)', display:'購三大交通卡最高 6%', value:6.0, cap:'回饋上限 300 元刷卡金', note:'SUICA/PASMO/ICOCA 儲值加碼。⚠️ 聯邦幸福M卡的交通 6% 只限台灣（台鐵/客運/計程車/租車），不含日本當地交通', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'日本當地交通（JR/地鐵/巴士/Suica）', card:'永豐大戶卡', display:'國外 4.5%（無腦）', value:4.5, cap:'大戶等級加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'一般刷卡保底；免特店、免想', updated:'2026-06-07' },
 
       { scenario:'日本消費', channel:'小額消費（單筆 ≤6,250 元，回饋最高）', card:'中信 Uniopen', display:'11%', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元）', note:'海外實體小額神卡；超過只有 3%', updated:'2026-06-07' },
 
-      { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'永豐幣倍卡(日幣)', display:'最高 6% / 保底 2% 無上限', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（NT$ 計）；國外 2% 無上限', note:'一般日本消費走國外 2% 無上限；精選通路（大國/Sugi藥妝、Rakuten、Amazon、iHerb、eBay、淘寶、Gmarket、Olive Young、Mercari、航空/旅行社/Booking/Agoda/Klook/KKday）享 6%', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'永豐幣倍卡(日幣)', display:'最高 6% / 保底 2% 無上限', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）；國外 2% 無上限', note:'幣倍卡只要是國外實體消費就有 +4% 加碼，日本實體店一律 6%（國外 2% + 國外實體 4%）；網購則限指定精選平台（Rakuten／Amazon／iHerb／淘寶／Booking／Agoda／Klook／KKday 等）', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'聯邦吉鶴卡', display:'4%（綁 Apple/Google Pay）', value:4.0, cap:'行動支付加碼：登錄 1.5% 上限 600 元/月（約刷 NT$40,000）；前月帳單滿 3 萬再 +1% 上限 200 元/月（約刷 NT$20,000）（日幣 2.5% 部分無上限）', note:'任何日本實體店刷 Apple/Google Pay：日幣 2.5% + 登錄加碼 1.5% = 4%（前月帳單滿 3 萬可到 5%），免特店、無腦。Google Pay 自 2026/4/1 起，需純感應（QUICPay 不算）', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'永豐大戶卡', display:'國外 4.5%（無腦）', value:4.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'免特店、免想；大戶等級＋綁指定任務即達', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'台新 Richart', display:'海外 3.3% 無上限', value:3.3, cap:'無上限', note:'需切「玩旅刷」模式', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／大量消費（全日本通用）', card:'國泰 CUBE', display:'海外 3% 無上限', value:3.0, cap:'無上限', note:'需切「趣旅行/海外」', updated:'2026-06-07' },
 
       // ---------- 玉山 Unicard 百大通路（官方指定，活動 2025/10/1~2026/6/30）----------
-      { scenario:'玉山 Unicard 百大通路', channel:'電商平台（momo/蝦皮/淘寶/Coupang）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'momo購物網、蝦皮購物、淘寶網、Coupang酷澎。需升級「UP選」（每月 149 玉山 e-point）享 4.5%；任意選 3.5%、簡單選 3%；基本 1% 無上限', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'國內百貨（新光三越/SOGO/台北101/三井OUTLET/誠品…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'新光三越、遠東SOGO、遠東Garden City大巨蛋、台北101、華泰名品城、三井OUTLET、京站、美麗華、秀泰生活、LaLaport、統領廣場、采盟、昇恆昌、統一時代百貨、遠東百貨、漢神百貨、台中漢神洲際、微風百貨、誠品。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'生活採買（家樂福/屈臣氏/康是美/UNIQLO/大樹藥局…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'家樂福、屈臣氏、康是美、特力屋、HOLA、hoi好好生活、UNIQLO、NET、大樹藥局、丁丁藥妝。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'餐飲美食（Uber Eats/foodpanda/王品/瓦城/乾杯/爭鮮…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'Uber Eats、foodpanda、EZTABLE、王品瘋Pay、饗賓餐飲、瓦城料理、乾杯燒肉、漢來美食、鼎王餐飲、爭鮮餐飲。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'加油交通（台灣中油/55688/台鐵/高鐵/Uber/Yoxi）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'台灣中油限直營店、55688台灣大車隊/機場接送、台鐵、高鐵、Uber、Yoxi。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'航空旅遊（華航/長榮/日航/虎航/樂桃/Klook/KKday/Agoda/Booking…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'中華航空、長榮航空、日本航空、台灣虎航、樂桃航空、酷航、Trip.com、Booking.com、Hotels.com、AsiaYo、Expedia、KKday、Klook、雄獅旅遊、可樂旅遊、東南旅遊、Agoda。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'國外實體消費（日本/韓國/泰國/美國…等 17 國）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'日本、韓國、泰國、越南、新加坡、馬來西亞、菲律賓、中國、香港、澳門、美國、加拿大、英國、法國、德國、義大利、澳洲。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'精選商家（Apple/小米/全國電子/燦坤/迪卡儂）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'Apple直營店、小米台灣、全國電子、燦坤、迪卡儂。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'ESG永續（特斯拉/Gogoro/YouBike/愛心捐款）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'特斯拉、Gogoro電池資費、YouBike 2.0、玉山Wallet愛心捐款。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
-      { scenario:'玉山 Unicard 百大通路', channel:'行動支付（LINE Pay/街口/全支付/悠遊付/全盈/iPASS/icash/玉山Wallet）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月', note:'玉山Wallet電子支付、LINE Pay、全支付、街口支付、悠遊付、全盈+PAY、iPASS MONEY、icash Pay。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' }
+      { scenario:'玉山 Unicard 百大通路', channel:'電商平台（momo/蝦皮/淘寶/Coupang）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'momo購物網、蝦皮購物、淘寶網、Coupang酷澎。需升級「UP選」（每月 149 玉山 e-point）享 4.5%；任意選 3.5%、簡單選 3%；基本 1% 無上限', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'國內百貨（新光三越/SOGO/台北101/三井OUTLET/誠品…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'新光三越、遠東SOGO、遠東Garden City大巨蛋、台北101、華泰名品城、三井OUTLET、京站、美麗華、秀泰生活、LaLaport、統領廣場、采盟、昇恆昌、統一時代百貨、遠東百貨、漢神百貨、台中漢神洲際、微風百貨、誠品。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'生活採買（家樂福/屈臣氏/康是美/UNIQLO/大樹藥局…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'家樂福、屈臣氏、康是美、特力屋、HOLA、hoi好好生活、UNIQLO、NET、大樹藥局、丁丁藥妝。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'餐飲美食（Uber Eats/foodpanda/王品/瓦城/乾杯/爭鮮…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'Uber Eats、foodpanda、EZTABLE、王品瘋Pay、饗賓餐飲、瓦城料理、乾杯燒肉、漢來美食、鼎王餐飲、爭鮮餐飲。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'加油交通（台灣中油/55688/台鐵/高鐵/Uber/Yoxi）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'台灣中油限直營店、55688台灣大車隊/機場接送、台鐵、高鐵、Uber、Yoxi。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'航空旅遊（華航/長榮/日航/虎航/樂桃/Klook/KKday/Agoda/Booking…）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'中華航空、長榮航空、日本航空、台灣虎航、樂桃航空、酷航、Trip.com、Booking.com、Hotels.com、AsiaYo、Expedia、KKday、Klook、雄獅旅遊、可樂旅遊、東南旅遊、Agoda。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'國外實體消費（日本/韓國/泰國/美國…等 17 國）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'日本、韓國、泰國、越南、新加坡、馬來西亞、菲律賓、中國、香港、澳門、美國、加拿大、英國、法國、德國、義大利、澳洲。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'精選商家（Apple/小米/全國電子/燦坤/迪卡儂）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'Apple直營店、小米台灣、全國電子、燦坤、迪卡儂。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'ESG永續（特斯拉/Gogoro/YouBike/愛心捐款）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'特斯拉、Gogoro電池資費、YouBike 2.0、玉山Wallet愛心捐款。需 UP選享 4.5%；任意選 3.5%', updated:'2026-06-07' },
+      { scenario:'玉山 Unicard 百大通路', channel:'行動支付（LINE Pay/街口/全支付/悠遊付/全盈/iPASS/icash/玉山Wallet）', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選加碼上限 1,000 點/月（約刷 40,000 元）', note:'玉山Wallet電子支付、LINE Pay、全支付、街口支付、悠遊付、全盈+PAY、iPASS MONEY、icash Pay。需 UP選享 4.5%；任意選 3.5%、簡單選 3%', updated:'2026-06-07' },
+
+      // ---------- 聯邦幸福M卡（指定場景加碼，活動 2026 整年；前提：須申辦電子化帳單）----------
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'航空（國內外航空機票）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須申辦電子化帳單（未辦只有國外 1.5%/國內 0.5%）。指定五大場景之一；當月跨 3 個場景且累積滿 5,000 元，再加碼 250 元刷卡金（每月最多 2 份）≈ 最高 11%', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'指定旅遊平台（Klook/KKday/Funnow）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須電子化帳單。Klook、KKday、Funnow、萬達通 等指定旅遊平台；可訂日本行程/票券', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'指定訂房網（Booking/Agoda/Trip.com/Airbnb）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須電子化帳單。Booking、Agoda、Trip.com、Airbnb、AsiaYo、Expedia、Hotels 等指定訂房網', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'指定交通（台灣台鐵/客運/計程車/租車）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須電子化帳單。⚠️ 只限台灣交通（台鐵/高鐵/客運/計程車/租車/停車），不含日本當地 JR/地鐵/巴士', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'指定旅行社（雄獅/可樂/東南）', card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須電子化帳單。雄獅、可樂、東南、五福 等指定旅行社', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'國外消費（實體/網路，歐洲除外）', card:'聯邦幸福M卡', display:'3% 無上限', value:3.0, cap:'無上限。國外實體面對面 3%、非實體/網路 1.5%', note:'須電子化帳單（未辦國外 1.5%）。⚠️ 不含歐洲：奧地利、比利時、捷克、丹麥、芬蘭、法國、德國、希臘、義大利、荷蘭、波蘭、葡萄牙、西班牙、瑞典、英國…等約 30 個歐洲國家「實體商店」交易不列入回饋（歐洲想賺回饋建議改永豐幣倍卡歐元版）。指定交通/旅遊已另計 6%、不重複算此 3%', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'國內保險（保費）', card:'聯邦幸福M卡', display:'1.2%', value:1.2, cap:'保險類交易回饋上限 1 萬元/活動期間，達上限後不再回饋', note:'須電子化帳單（未辦 0.5%）。國內保費；與「保險分期零利率」二擇一', updated:'2026-06-08' },
+      { scenario:'聯邦幸福M卡（旅遊/交通加碼）', channel:'國內一般消費', card:'聯邦幸福M卡', display:'國內 1%', value:1.0, cap:'無上限', note:'須電子化帳單（未辦 0.5%）。國內一般消費；國內保險及指定交通/旅遊不列入此 1%', updated:'2026-06-08' }
     ];
 
-    var curScenario = '', curChannel = '', curSearch = '';
+    // 第三層「店家」設定：逐店精準。熊本熊 8.5% 名單以玉山官網為準（2026/1/1~6/30）
+    // 共用卡片產生器（避免重複、降低出錯）
+    var mk = {
+      uni: function (n) { return { card:'中信 Uniopen', display:'11%（小額）', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元內）', note: n || '海外實體小額神卡；單期超過約 6,250 元的部分只有 3%' }; },
+      kuma: function (n) { return { card:'玉山熊本熊卡', display:'約 8.5%', value:8.5, cap:'日本 2.5% + 指定商店加碼 6%；加碼上限 500 元/期（約刷 8,333 元）、需登錄 1 次', note: n }; },
+      jihe: function (n) { return { card:'聯邦吉鶴卡', display:'約 7%（綁 Apple/Google Pay）', value:7.0, cap:'登錄 1.5% 上限 600 元/月；前月帳單滿 3 萬再 +1% 上限 200 元/月；11 大商店加碼上限 600 元/期', note: n }; },
+      bibei: function () { return { card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'國外實體精選 +4% 上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）', note:'日本實體店一律 6%（國外實體就是精選通路）' }; },
+      bibeiT: function (n) { return { card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'精選通路 +4% 回饋上限：Level 2 = 800 元/月（約刷 NT$20,000）、Level 1 = 300 元/月（約刷 NT$7,500）；國外 2% 無上限', note: n }; },
+      bibeiIC: function () { return { card:'永豐幣倍卡(日幣)', display:'最高 6%', value:6.0, cap:'三大交通卡儲值加碼，回饋上限 300 元刷卡金', note:'SUICA/PASMO/ICOCA 儲值屬幣倍卡精選通路（國外 2% + 4%）' }; },
+      dahu: function () { return { card:'永豐大戶卡', display:'國外 4.5%（無腦）', value:4.5, cap:'加碼 2.5%，回饋上限 NT$400/月（約刷 16,000 元）', note:'免特店、免想，一般刷卡保底' }; },
+      xingfu: function (scene) { return { card:'聯邦幸福M卡', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'幸福M「' + scene + '」場景 6%' }; }
+    };
+    var STORES = {
+      '便利商店（7-11/全家/Lawson）': ['7-ELEVEN', '全家 FamilyMart', 'LAWSON'],
+      '藥妝（松本清/大國等）': ['大國藥妝', '松本清', '唐吉訶德', 'Sugi 藥妝', 'SUNDRUG', '其他日系藥妝'],
+      '量販電器（BIC/Yodobashi/唐吉訶德）': ['BIC CAMERA', 'Yodobashi', '唐吉訶德', '無印良品'],
+      '百貨（永旺/三越/高島屋）': ['永旺 AEON', '三越／伊勢丹', '高島屋', '其他百貨（大丸/阪急等）'],
+      '服飾（UNIQLO/GU）': ['UNIQLO', 'GU', '其他服飾'],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）': ['一蘭拉麵', '鳥貴族', '勝烈亭', '敘敘苑', '牛角', '力丸燒肉', '六歌仙燒肉', '松屋', 'SUKIYA', '壽司郎', '藏壽司', 'Shake Shack', 'DOUTOR 咖啡', '其他餐廳'],
+      '樂園（東京迪士尼/大阪環球）': ['東京迪士尼', '大阪環球影城 USJ', '東京哈利波特影城', '豪斯登堡', '名古屋樂高樂園', '九州非洲獅樂園', '吉伊卡哇樂園'],
+      '租車（OTS/ORIX）': ['TOYOTA 租車', 'Times 租車', 'NIPPON 租車', 'OTS 租車', 'ORIX 租車'],
+      '三井 OUTLET / 星野集團': ['三井 OUTLET（MITSUI）', '星野集團'],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）': ['Booking.com', 'Agoda', 'Trip.com', 'Airbnb', '樂天旅遊', '東橫INN', '星野集團（訂房）'],
+      '旅遊平台/票券體驗（Klook/KKday/Funnow）': ['Klook', 'KKday', 'Funnow'],
+      '機票（飛日本航班）': ['日本航空 JAL', '其他航空（華航/長榮/虎航等）'],
+      '日本當地交通（JR/地鐵/巴士/Suica）': ['SUICA/PASMO/ICOCA 儲值', 'JR 鐵路', '地鐵/巴士（現場）']
+    };
+    // 各店家的卡片（覆蓋類別預設）；key = 類別|店家；顯示時依 value 由高到低排序
+    var STORE_CARDS = {
+      // ===== 便利商店（吉鶴 11 大）=====
+      '便利商店（7-11/全家/Lawson）|7-ELEVEN': [ mk.uni(), mk.jihe('7-ELEVEN 屬吉鶴 11 大便利商店：日幣 2.5% + 3% + 行動支付登錄 1.5% ≈ 7%（前月帳單滿 3 萬到 8%）；需純 Apple/Google Pay 感應、單筆 ≥ NT$100'), mk.bibei() ],
+      '便利商店（7-11/全家/Lawson）|全家 FamilyMart': [ mk.uni(), mk.jihe('全家 FamilyMart 屬吉鶴 11 大便利商店；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）、單筆 ≥ NT$100'), mk.bibei() ],
+      '便利商店（7-11/全家/Lawson）|LAWSON': [ mk.uni(), mk.jihe('LAWSON 屬吉鶴 11 大便利商店；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）、單筆 ≥ NT$100'), mk.bibei() ],
+      // ===== 藥妝（熊本熊官方藥妝僅 松本清/唐吉訶德/大國）=====
+      '藥妝（松本清/大國等）|大國藥妝': [ mk.uni(), mk.kuma('大國藥妝為熊本熊官方指定藥妝'), mk.bibei() ],
+      '藥妝（松本清/大國等）|松本清': [ mk.uni(), mk.kuma('松本清為熊本熊官方指定藥妝'), mk.bibei() ],
+      '藥妝（松本清/大國等）|唐吉訶德': [ mk.uni(), mk.kuma('唐吉訶德為熊本熊官方指定（藥妝/量販）'), mk.jihe('唐吉訶德屬吉鶴 11 大商店；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）'), mk.bibei() ],
+      '藥妝（松本清/大國等）|Sugi 藥妝': [ mk.uni(), mk.bibeiT('Sugi 藥妝屬幣倍卡精選通路（國外 2% + 4% = 6%）；熊本熊不適用 Sugi') ],
+      '藥妝（松本清/大國等）|SUNDRUG': [ mk.uni('SUNDRUG 海外小額 11%；熊本熊/吉鶴 皆不含 SUNDRUG'), mk.bibei() ],
+      '藥妝（松本清/大國等）|其他日系藥妝': [ mk.uni('其他日系藥妝海外小額一律 11%（超過 3%）'), mk.bibei(), mk.dahu() ],
+      // ===== 量販電器（BIC/Yodobashi/唐吉訶德 = 熊本熊 + 吉鶴；無印 = 熊本熊）=====
+      '量販電器（BIC/Yodobashi/唐吉訶德）|BIC CAMERA': [ mk.uni(), mk.kuma('BicCamera 為熊本熊官方指定家電'), mk.jihe('BIC CAMERA 屬吉鶴 11 大量販；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）'), mk.bibei() ],
+      '量販電器（BIC/Yodobashi/唐吉訶德）|Yodobashi': [ mk.uni(), mk.kuma('Yodobashi 為熊本熊官方指定家電'), mk.jihe('Yodobashi 屬吉鶴 11 大量販；綁 Apple/Google Pay ≈ 7%'), mk.bibei() ],
+      '量販電器（BIC/Yodobashi/唐吉訶德）|唐吉訶德': [ mk.uni(), mk.kuma('唐吉訶德為熊本熊官方指定'), mk.jihe('唐吉訶德屬吉鶴 11 大量販；綁 Apple/Google Pay ≈ 7%'), mk.bibei() ],
+      '量販電器（BIC/Yodobashi/唐吉訶德）|無印良品': [ mk.uni(), mk.kuma('無印良品為熊本熊官方指定生活雜貨'), mk.bibei() ],
+      // ===== 百貨（永旺/三越/高島屋 = 吉鶴 11 大）=====
+      '百貨（永旺/三越/高島屋）|永旺 AEON': [ mk.uni(), mk.jihe('永旺 AEON 屬吉鶴 11 大百貨；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）'), mk.bibei() ],
+      '百貨（永旺/三越/高島屋）|三越／伊勢丹': [ mk.uni(), mk.jihe('三越屬吉鶴 11 大百貨；綁 Apple/Google Pay ≈ 7%'), mk.bibei() ],
+      '百貨（永旺/三越/高島屋）|高島屋': [ mk.uni(), mk.jihe('高島屋屬吉鶴 11 大百貨；綁 Apple/Google Pay ≈ 7%'), mk.bibei() ],
+      '百貨（永旺/三越/高島屋）|其他百貨（大丸/阪急等）': [ mk.uni(), mk.bibei(), mk.dahu() ],
+      // ===== 服飾（UNIQLO/GU = 熊本熊）=====
+      '服飾（UNIQLO/GU）|UNIQLO': [ mk.uni(), mk.kuma('UNIQLO 為熊本熊官方指定服飾。⚠️ UNIQLO 常只能插實體卡，感應/PayPay 可能不適用'), mk.bibei() ],
+      '服飾（UNIQLO/GU）|GU': [ mk.uni(), mk.kuma('GU 為熊本熊官方指定服飾'), mk.bibei() ],
+      '服飾（UNIQLO/GU）|其他服飾': [ mk.uni(), mk.bibei() ],
+      // ===== 拉麵/燒肉/美食（全為熊本熊官方指定）=====
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|一蘭拉麵': [ mk.uni(), mk.kuma('一蘭拉麵為熊本熊官方指定（拉麵）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|鳥貴族': [ mk.uni(), mk.kuma('鳥貴族為熊本熊官方指定（居酒屋）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|勝烈亭': [ mk.uni(), mk.kuma('勝烈亭為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|敘敘苑': [ mk.uni(), mk.kuma('敘敘苑為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|牛角': [ mk.uni(), mk.kuma('牛角為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|力丸燒肉': [ mk.uni(), mk.kuma('力丸燒肉為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|六歌仙燒肉': [ mk.uni(), mk.kuma('六歌仙燒肉為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|松屋': [ mk.uni(), mk.kuma('松屋為熊本熊官方指定（平價快餐）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|SUKIYA': [ mk.uni(), mk.kuma('SUKIYA すき家 為熊本熊官方指定（平價快餐）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|壽司郎': [ mk.uni(), mk.kuma('壽司郎為熊本熊官方指定（壽司）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|藏壽司': [ mk.uni(), mk.kuma('藏壽司為熊本熊官方指定（壽司）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|Shake Shack': [ mk.uni(), mk.kuma('Shake Shack 為熊本熊官方指定（漢堡）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|DOUTOR 咖啡': [ mk.uni(), mk.kuma('DOUTOR Coffee 為熊本熊官方指定（咖啡廳）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|其他餐廳': [ mk.uni(), mk.bibei(), mk.dahu() ],
+      // ===== 樂園（迪士尼/環球 = 熊本熊 + 吉鶴；其餘 = 熊本熊）=====
+      '樂園（東京迪士尼/大阪環球）|東京迪士尼': [ mk.kuma('東京迪士尼樂園為熊本熊官方指定'), mk.jihe('東京迪士尼屬吉鶴 11 大樂園；綁 Apple/Google Pay ≈ 7%（前月滿 3 萬到 8%）'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|大阪環球影城 USJ': [ mk.kuma('日本環球影城為熊本熊官方指定'), mk.jihe('大阪環球屬吉鶴 11 大樂園；綁 Apple/Google Pay ≈ 7%'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|東京哈利波特影城': [ mk.kuma('東京華納兄弟哈利波特影城為熊本熊官方指定'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|豪斯登堡': [ mk.kuma('豪斯登堡為熊本熊官方指定'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|名古屋樂高樂園': [ mk.kuma('名古屋樂高樂園為熊本熊官方指定'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|九州非洲獅樂園': [ mk.kuma('九州非洲獅樂園為熊本熊官方指定'), mk.bibei() ],
+      '樂園（東京迪士尼/大阪環球）|吉伊卡哇樂園': [ mk.kuma('吉伊卡哇樂園為熊本熊官方指定'), mk.bibei() ],
+      // ===== 租車（全為熊本熊官方指定）=====
+      '租車（OTS/ORIX）|TOYOTA 租車': [ mk.kuma('TOYOTA Rent a Car 為熊本熊官方指定租車'), mk.bibei() ],
+      '租車（OTS/ORIX）|Times 租車': [ mk.kuma('Times Car Rental 為熊本熊官方指定租車'), mk.bibei() ],
+      '租車（OTS/ORIX）|NIPPON 租車': [ mk.kuma('NIPPON RENT-A-CAR 為熊本熊官方指定租車'), mk.bibei() ],
+      '租車（OTS/ORIX）|OTS 租車': [ mk.kuma('OTS 租車為熊本熊官方指定租車'), mk.bibei() ],
+      '租車（OTS/ORIX）|ORIX 租車': [ mk.kuma('ORIX 租車為熊本熊官方指定租車'), mk.bibei() ],
+      // ===== 三井 OUTLET / 星野 =====
+      '三井 OUTLET / 星野集團|三井 OUTLET（MITSUI）': [ mk.uni(), mk.kuma('日本 MITSUI 三井購物園區為熊本熊官方指定'), mk.bibei() ],
+      '三井 OUTLET / 星野集團|星野集團': [ mk.kuma('星野集團為熊本熊官方指定（住宿）'), mk.bibei() ],
+      // ===== 飯店/訂房（OTA 走幸福M/幣倍旅遊；樂天/東橫/星野 = 熊本熊）=====
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Booking.com': [ mk.xingfu('訂房網'), mk.bibeiT('Booking.com 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Agoda': [ mk.xingfu('訂房網'), mk.bibeiT('Agoda 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Trip.com': [ mk.xingfu('訂房網'), mk.bibeiT('Trip.com 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Airbnb': [ mk.xingfu('訂房網'), mk.bibeiT('Airbnb 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|樂天旅遊': [ mk.kuma('樂天旅遊為熊本熊官方指定（住宿預訂）'), mk.bibeiT('樂天旅遊屬幣倍卡旅遊精選通路（國外 2% + 4%）'), mk.xingfu('訂房網') ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|東橫INN': [ mk.kuma('東橫INN 為熊本熊官方指定（住宿）'), mk.bibei() ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|星野集團（訂房）': [ mk.kuma('星野集團為熊本熊官方指定（住宿）'), mk.bibei() ],
+      // ===== 旅遊平台/票券 =====
+      '旅遊平台/票券體驗（Klook/KKday/Funnow）|Klook': [ mk.xingfu('旅遊平台'), mk.bibeiT('Klook 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '旅遊平台/票券體驗（Klook/KKday/Funnow）|KKday': [ mk.xingfu('旅遊平台'), mk.bibeiT('KKday 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '旅遊平台/票券體驗（Klook/KKday/Funnow）|Funnow': [ mk.xingfu('旅遊平台') ],
+      // ===== 機票（JAL = 熊本熊；其餘走幸福M/幣倍旅遊）=====
+      '機票（飛日本航班）|日本航空 JAL': [ mk.kuma('日本航空為熊本熊官方指定（航空訂票）'), mk.xingfu('航空'), mk.bibeiT('航空公司屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      '機票（飛日本航班）|其他航空（華航/長榮/虎航等）': [ mk.xingfu('航空'), mk.bibeiT('航空公司屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
+      // ===== 日本當地交通 =====
+      '日本當地交通（JR/地鐵/巴士/Suica）|SUICA/PASMO/ICOCA 儲值': [ mk.kuma('交通 IC 卡儲值（SUICA/PASMO/ICOCA）為熊本熊官方指定'), mk.bibeiIC() ],
+      '日本當地交通（JR/地鐵/巴士/Suica）|JR 鐵路': [ mk.kuma('JR 鐵路公司為熊本熊官方指定（鐵路購票）'), mk.dahu() ],
+      '日本當地交通（JR/地鐵/巴士/Suica）|地鐵/巴士（現場）': [ mk.dahu() ]
+    };
+
+    var curScenario = '', curChannel = '', curStore = '', curSearch = '';
 
     var dates = ALL.map(function (r) { return r.updated; }).filter(Boolean).sort();
     document.getElementById('updated').textContent =
@@ -154,7 +274,7 @@
 
     function channelsOf(s) { var seen={},list=[]; ALL.forEach(function(r){ if(r.scenario===s&&!seen[r.channel]){seen[r.channel]=1;list.push(r.channel);} }); return list; }
     function scenarios() { var seen={},list=[]; ALL.forEach(function(r){ if(!seen[r.scenario]){seen[r.scenario]=1;list.push(r.scenario);} }); return list; }
-    function emojiFor(s){ if(s.indexOf('百大')>-1)return '🏆'; if(s.indexOf('行動支付')>-1)return '📱'; if(s.indexOf('日本')>-1)return '🗾'; return '💳'; }
+    function emojiFor(s){ if(s.indexOf('百大')>-1)return '🏆'; if(s.indexOf('幸福M')>-1)return '🧳'; if(s.indexOf('行動支付')>-1)return '📱'; if(s.indexOf('日本')>-1)return '🗾'; return '💳'; }
 
     function render() {
       var sc = scenarios();
@@ -166,9 +286,14 @@
       html += '</div>';
       if (curScenario) {
         var chs = channelsOf(curScenario);
-        html += '<div class="step-label">第二步：選通路／店家</div><select onchange="pickChannel(this.value)"><option value="">— 請選擇 —</option>';
+        html += '<div class="step-label">第二步：選類別／通路</div><select onchange="pickChannel(this.value)"><option value="">— 請選擇 —</option>';
         chs.forEach(function (c) { html += '<option value="' + esc(c) + '"' + (c===curChannel?' selected':'') + '>' + c + '</option>'; });
         html += '</select>';
+        if (curChannel && STORES[curChannel]) {
+          html += '<div class="step-label">第三步：選店家（每家最佳卡不同）</div><select onchange="pickStore(this.value)"><option value="">— 請選擇店家 —</option>';
+          STORES[curChannel].forEach(function (s) { html += '<option value="' + esc(s) + '"' + (s===curStore?' selected':'') + '>' + s + '</option>'; });
+          html += '</select>';
+        }
       }
       html += '<div class="results" id="results"></div>';
       document.getElementById('app').innerHTML = html;
@@ -178,7 +303,15 @@
     function renderResults() {
       var box = document.getElementById('results'); if (!box) return;
       if (!curScenario || !curChannel) {
-        box.innerHTML = '<div class="hint">' + (curScenario ? '👆 選一個通路／店家就告訴你最高回饋' : '👆 先選上面的情境') + '</div>'; return;
+        box.innerHTML = '<div class="hint">' + (curScenario ? '👆 選一個類別／通路就告訴你最高回饋' : '👆 先選上面的情境') + '</div>'; return;
+      }
+      // 有第三層「店家」的類別：要先選店家，逐店顯示
+      if (STORES[curChannel]) {
+        if (!curStore) { box.innerHTML = '<div class="hint">👆 選一個店家（每家最佳卡不同）</div>'; return; }
+        var srows = (STORE_CARDS[curChannel + '|' + curStore] || []).slice().sort(function(a,b){ return b.value-a.value; });
+        var shtml = ''; srows.forEach(function (r, i) { shtml += cardHtml(r, i===0); });
+        box.innerHTML = shtml || '<div class="hint">這家店家的資料還在補，先參考類別整體</div>';
+        return;
       }
       var m = ALL.filter(function(r){ return r.scenario===curScenario && r.channel===curChannel; }).sort(function(a,b){ return b.value-a.value; });
       var html = '';
@@ -186,11 +319,30 @@
       box.innerHTML = html;
     }
 
+    // 各卡官網連結（點卡名快速查詢；資料來源亦為這些官網）
+    var CARD_LINKS = {
+      '玉山 Unicard': 'https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard',
+      '玉山熊本熊卡': 'https://event.esunbank.com.tw/credit/kumamon-card/japan-discount.html',
+      '永豐大戶卡': 'https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html',
+      '永豐幣倍卡(日幣)': 'https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/dual-currency-card.html',
+      '台新 Richart': 'https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/',
+      '台新 Richart（台新Pay+）': 'https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/',
+      '中信 Uniopen': 'https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_uniopen.html',
+      '聯邦吉鶴卡': 'https://card.ubot.com.tw/CardDetail/cardDetail202',
+      '聯邦幸福M卡': 'https://card.ubot.com.tw/CardDetail/cardDetail203',
+      '國泰 CUBE': 'https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube'
+    };
+    function cardNameHtml(name) {
+      var url = CARD_LINKS[name];
+      if (!url) return name;
+      return '<a href="' + url + '" target="_blank" rel="noopener">' + name + '<span class="ext"> ↗</span></a>';
+    }
+
     // 共用：把一筆回饋渲染成卡片
     function cardHtml(r, isBest) {
       var html = '<div class="card ' + (isBest ? 'best' : '') + '">';
       if (isBest) html += '<span class="best-badge">★ 最高回饋</span>';
-      html += '<div class="card-top"><span class="card-name">' + r.card + '</span><span class="card-reward">' + r.display + '</span></div>';
+      html += '<div class="card-top"><span class="card-name">' + cardNameHtml(r.card) + '</span><span class="card-reward">' + r.display + '</span></div>';
       if (r.cap) html += '<div class="meta">每期上限：<b>' + r.cap + '</b></div>';
       if (r.note) html += '<div class="note">' + r.note + '</div>';
       html += '</div>';
@@ -229,8 +381,9 @@
       box.innerHTML = html;
     }
 
-    function pickScenario(s){ curScenario=s; curChannel=''; render(); }
-    function pickChannel(c){ curChannel=c; renderResults(); }
+    function pickScenario(s){ curScenario=s; curChannel=''; curStore=''; render(); }
+    function pickChannel(c){ curChannel=c; curStore=''; render(); }
+    function pickStore(s){ curStore=s; renderResults(); }
     function esc(s){ return String(s).replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
     function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
