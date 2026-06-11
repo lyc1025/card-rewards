@@ -38,6 +38,7 @@
     .card-btn .emoji { font-size: 22px; flex: none; }
     .card-btn.active { border-color: #1f6feb; background: #eaf2ff; color: #1f6feb; }
     .card-link-head { font-size: 12.5px; color: #6b7280; margin: 6px 0 8px; }
+    .cycle-note { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-size: 12.5px; padding: 8px 12px; border-radius: 10px; margin-bottom: 10px; line-height: 1.5; }
     select {
       width: 100%; padding: 14px; font-size: 16px; border: 2px solid #d8dee9; border-radius: 12px;
       background: #fff; color: #1c2333; appearance: none;
@@ -354,6 +355,19 @@
     function emojiFor(s){ if(s.indexOf('百大')>-1)return '🏆'; if(s.indexOf('幸福M')>-1)return '🧳'; if(s.indexOf('行動支付')>-1)return '📱'; if(s.indexOf('日本')>-1)return '🗾'; return '💳'; }
     var CARD_ICONS = { '玉山 Unicard':'🦄', '永豐大戶卡':'💰', '永豐幣倍卡(日幣)':'💴', '玉山熊本熊卡':'🐻', '聯邦吉鶴卡':'🕊️', '中信 Uniopen':'🏪', '永豐Sport卡':'🏃', '聯邦幸福M卡':'Ⓜ️', '國泰 CUBE':'🧊', '台新 Richart':'🐶' };
     function iconForCard(c){ return CARD_ICONS[c] || '💳'; }
+    // 各卡回饋結算週期（上限怎麼重置／回饋何時入帳）
+    var CARD_CYCLES = {
+      '玉山 Unicard': '每月 1 日～月底（日曆月，結帳日不影響），次月 17 日起發放 e point；消費需於次月 10 日前請款才列入',
+      '永豐大戶卡': '依帳單週期（每期帳單，隨個人結帳日），上限每期重新計算',
+      '永豐幣倍卡(日幣)': '依帳單週期（每期帳單，隨個人結帳日），上限每期重新計算',
+      '玉山熊本熊卡': '依帳單週期（日本加碼上限 500 元/期；PayPay 加碼歸戶每季帳單計）',
+      '聯邦吉鶴卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
+      '中信 Uniopen': '每月 1 日～月底（日曆月），以「完成請款入帳」的消費計算，上限每月重新計算',
+      '永豐Sport卡': '每月 1 日～月底（日曆月）；回饋於消費「次次月」給豐點（顯示於次次期帳單）',
+      '聯邦幸福M卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
+      '國泰 CUBE': '即時回饋：刷卡入帳後約 3～5 個工作天給小樹點（主要方案無上限）',
+      '台新 Richart': '即時回饋：入帳日後次 2 個營業日給台新Point（7 大刷無月上限）'
+    };
 
     function render() {
       var html = '<div class="mode-tabs">'
@@ -364,7 +378,10 @@
         html += '<div class="step-label">選一張卡（看它所有回饋場景）</div><div class="card-grid">';
         CARDS_ORDER.forEach(function (c) { html += '<button class="card-btn ' + (c===curCard?'active':'') + '" onclick="pickCard(\'' + esc(c) + '\')"><span class="emoji">' + iconForCard(c) + '</span>' + c + '</button>'; });
         html += '</div>';
-        if (curCard) html += '<div class="card-link-head">官網：' + cardNameHtml(curCard) + '</div>';
+        if (curCard) {
+          html += '<div class="card-link-head">官網：' + cardNameHtml(curCard) + '</div>';
+          if (CARD_CYCLES[curCard]) html += '<div class="cycle-note">📅 結算週期：' + CARD_CYCLES[curCard] + '</div>';
+        }
       } else {
         var sc = scenarios();
         html += '<div class="step-label">第一步：你要做什麼？</div><div class="scenario-row">';
