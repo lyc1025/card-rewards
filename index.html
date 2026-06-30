@@ -238,7 +238,7 @@
       ]
     };
 
-    // 第三層「店家」設定：逐店精準。熊本熊 8.5% 名單以玉山官網為準（2026/1/1~6/30）
+    // 第三層「店家」設定：逐店精準。熊本熊 8.5% 名單以玉山官網為準（2026/7/1~12/31 下半年版）
     // 共用卡片產生器（避免重複、降低出錯）
     var mk = {
       uni: function (n) { return { card:'中信 Uniopen', display:'11%（小額）', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元內）', note: (n || '海外實體小額神卡；單期超過約 6,250 元的部分只有 3%') + '。⚠️ 11% 國外加碼僅 2026/7/1~8/31，9 月起降 3%' }; },
@@ -255,12 +255,12 @@
       '藥妝（松本清/大國等）': ['大國藥妝', '松本清', '唐吉訶德', 'Sugi 藥妝', 'SUNDRUG', '其他日系藥妝'],
       '量販電器（BIC/Yodobashi/唐吉訶德）': ['BIC CAMERA', 'Yodobashi', '唐吉訶德', '無印良品'],
       '百貨（永旺/三越/高島屋）': ['永旺 AEON', '三越／伊勢丹', '高島屋', '其他百貨（大丸/阪急等）'],
-      '服飾（UNIQLO/GU）': ['UNIQLO', 'GU', '其他服飾'],
-      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）': ['一蘭拉麵', '鳥貴族', '勝烈亭', '敘敘苑', '牛角', '力丸燒肉', '六歌仙燒肉', '松屋', 'SUKIYA', '壽司郎', '藏壽司', 'Shake Shack', 'DOUTOR 咖啡', '其他餐廳'],
+      '服飾（UNIQLO/GU）': ['UNIQLO', 'GU', 'Montbell', 'Alpen', '其他服飾'],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）': ['一蘭拉麵', '鳥貴族', '勝烈亭', '敘敘苑', '牛角', '力丸燒肉', '六歌仙燒肉', '人形町今半', '松屋', 'SUKIYA', '壽司郎', '藏壽司', 'Shake Shack', 'DOUTOR 咖啡', '其他餐廳'],
       '樂園（東京迪士尼/大阪環球）': ['東京迪士尼', '大阪環球影城 USJ', '東京哈利波特影城', '豪斯登堡', '名古屋樂高樂園', '九州非洲獅樂園', '吉伊卡哇樂園'],
-      '租車（OTS/ORIX）': ['TOYOTA 租車', 'Times 租車', 'NIPPON 租車', 'OTS 租車', 'ORIX 租車'],
-      '三井 OUTLET / 星野集團': ['三井 OUTLET（MITSUI）', '星野集團'],
-      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）': ['Booking.com', 'Agoda', 'Trip.com', 'Airbnb', '樂天旅遊', '東橫INN', '星野集團（訂房）'],
+      '租車（OTS/ORIX）': ['TOYOTA 租車', 'Times 租車', 'NIPPON 租車', 'OTS 租車', 'ORIX 租車', 'Budget 租車'],
+      '三井 OUTLET / 星野集團': ['三井 OUTLET（MITSUI）', 'LaLaport', '星野集團'],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）': ['Booking.com', 'Agoda', 'Trip.com', 'Airbnb', '樂天旅遊', '東橫INN', 'Prince Hotel', '星野集團（訂房）'],
       '旅遊平台/票券體驗（Klook/KKday/Funnow）': ['Klook', 'KKday', 'Funnow'],
       '機票（飛日本航班）': ['日本航空 JAL', '其他航空（華航/長榮/虎航等）'],
       '日本當地交通（JR/地鐵/巴士/Suica）': ['SUICA/PASMO/ICOCA 儲值', 'JR 鐵路', '地鐵/巴士（現場）']
@@ -291,6 +291,8 @@
       // ===== 服飾（UNIQLO/GU = 熊本熊）=====
       '服飾（UNIQLO/GU）|UNIQLO': [ mk.uni(), mk.kuma('UNIQLO 為熊本熊官方指定服飾。⚠️ UNIQLO 常只能插實體卡，感應/PayPay 可能不適用'), mk.bibei() ],
       '服飾（UNIQLO/GU）|GU': [ mk.uni(), mk.kuma('GU 為熊本熊官方指定服飾'), mk.bibei() ],
+      '服飾（UNIQLO/GU）|Montbell': [ mk.uni(), mk.kuma('Montbell 為熊本熊官方指定服飾（2026 下半年新增）'), mk.bibei() ],
+      '服飾（UNIQLO/GU）|Alpen': [ mk.uni(), mk.kuma('Alpen 為熊本熊官方指定服飾／運動用品（2026 下半年新增）'), mk.bibei() ],
       '服飾（UNIQLO/GU）|其他服飾': [ mk.uni(), mk.bibei() ],
       // ===== 拉麵/燒肉/美食（全為熊本熊官方指定）=====
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|一蘭拉麵': [ mk.uni(), mk.kuma('一蘭拉麵為熊本熊官方指定（拉麵）'), mk.bibei() ],
@@ -300,6 +302,7 @@
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|牛角': [ mk.uni(), mk.kuma('牛角為熊本熊官方指定（燒肉）'), mk.bibei() ],
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|力丸燒肉': [ mk.uni(), mk.kuma('力丸燒肉為熊本熊官方指定（燒肉）'), mk.bibei() ],
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|六歌仙燒肉': [ mk.uni(), mk.kuma('六歌仙燒肉為熊本熊官方指定（燒肉）'), mk.bibei() ],
+      '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|人形町今半': [ mk.uni(), mk.kuma('人形町今半為熊本熊官方指定（壽喜燒，2026 下半年新增）'), mk.bibei() ],
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|松屋': [ mk.uni(), mk.kuma('松屋為熊本熊官方指定（平價快餐）'), mk.bibei() ],
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|SUKIYA': [ mk.uni(), mk.kuma('SUKIYA すき家 為熊本熊官方指定（平價快餐）'), mk.bibei() ],
       '拉麵/燒肉（一蘭/鳥貴族/力丸/六歌仙）|壽司郎': [ mk.uni(), mk.kuma('壽司郎為熊本熊官方指定（壽司）'), mk.bibei() ],
@@ -321,8 +324,10 @@
       '租車（OTS/ORIX）|NIPPON 租車': [ mk.kuma('NIPPON RENT-A-CAR 為熊本熊官方指定租車'), mk.bibei() ],
       '租車（OTS/ORIX）|OTS 租車': [ mk.kuma('OTS 租車為熊本熊官方指定租車'), mk.bibei() ],
       '租車（OTS/ORIX）|ORIX 租車': [ mk.kuma('ORIX 租車為熊本熊官方指定租車'), mk.bibei() ],
+      '租車（OTS/ORIX）|Budget 租車': [ mk.kuma('Budget 租車為熊本熊官方指定租車（2026 下半年新增）'), mk.bibei() ],
       // ===== 三井 OUTLET / 星野 =====
       '三井 OUTLET / 星野集團|三井 OUTLET（MITSUI）': [ mk.uni(), mk.kuma('日本 MITSUI 三井購物園區為熊本熊官方指定'), mk.bibei() ],
+      '三井 OUTLET / 星野集團|LaLaport': [ mk.uni(), mk.kuma('LaLaport 購物園區為熊本熊官方指定（2026 下半年新增）'), mk.bibei() ],
       '三井 OUTLET / 星野集團|星野集團': [ mk.kuma('星野集團為熊本熊官方指定（住宿）'), mk.bibei() ],
       // ===== 飯店/訂房（OTA 走幸福M/幣倍旅遊；樂天/東橫/星野 = 熊本熊）=====
       '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Booking.com': [ mk.xingfu('訂房網'), mk.bibeiT('Booking.com 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
@@ -331,6 +336,7 @@
       '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Airbnb': [ mk.xingfu('訂房網'), mk.bibeiT('Airbnb 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
       '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|樂天旅遊': [ mk.kuma('樂天旅遊為熊本熊官方指定（住宿預訂）'), mk.bibeiT('樂天旅遊屬幣倍卡旅遊精選通路（國外 2% + 4%）'), mk.xingfu('訂房網') ],
       '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|東橫INN': [ mk.kuma('東橫INN 為熊本熊官方指定（住宿）'), mk.bibei() ],
+      '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|Prince Hotel': [ mk.kuma('Prince Hotel 王子飯店為熊本熊官方指定（住宿，2026 下半年新增）'), mk.bibei() ],
       '飯店/訂房（Booking/Agoda/Airbnb/Trip.com）|星野集團（訂房）': [ mk.kuma('星野集團為熊本熊官方指定（住宿）'), mk.bibei() ],
       // ===== 旅遊平台/票券 =====
       '旅遊平台/票券體驗（Klook/KKday/Funnow）|Klook': [ mk.xingfu('旅遊平台'), mk.bibeiT('Klook 屬幣倍卡旅遊精選通路（國外 2% + 4%）') ],
