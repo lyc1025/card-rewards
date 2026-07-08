@@ -160,7 +160,7 @@
       '聯邦幸福M卡': '須申辦電子化帳單才有完整回饋；五大場景共用月上限 300 元',
       '中信 Uniopen': '⚠️ 多數加碼活動期間至 2026/8/31（國外實體加碼 8%→最高 11%、統一集團 2%、踩點、icash Pay 4%），9 月起以官方新公告為準；國內一般 1% 為常態。滿 199 低消門檻同時適用兩處：統一集團踩點（每月不同品牌、每家單筆滿 199，2~5 家加 1~4%）與 icash Pay 指定店（單筆滿 199 +4%）',
       '國泰 CUBE': '⚙️ 切權益卡：每日可免費切換 1 次方案（當日 0 時起生效）。預設你的等級 Lv2（CUBE App 繳卡費/自動扣繳）→ 指定方案 3%（Lv3 財管貴賓才 3.3%）',
-      '台新 Richart': '⚙️ 切權益卡：每日切換 1 次「7 大刷」（當日 23:59 記錄）；3.8%/3.3% 需設定台新帳戶扣繳達 Level 2'
+      '台新 Richart': '⚙️ 切權益卡：每日切換 1 次「7+1 大刷」（當日 23:59 記錄）；2026 下半年新增「Chill刷」指定通路最高 10%（2026/7/8 起可切）。3.8%/3.3%/10% 需設定台新帳戶扣繳達 Level 2（未設定僅 1.3%）'
     };
     var CARD_BENEFITS = {
       '玉山 Unicard': [
@@ -226,6 +226,7 @@
         { scene:'一般消費', display:'0.3% 無上限', value:0.3, cap:'無上限', note:'非指定方案通路' }
       ],
       '台新 Richart': [
+        { scene:'Chill刷（快樂人格・指定獨立店/官網）', display:'最高 10%', value:10.0, cap:'加碼上限＝信用額度+30 萬（實質無上限）；需 Lv2（未設定台新帳戶扣繳僅 1.3%）；2026/7/8 11:00 起於 Richart Life App 開放切換', note:'2026 下半年新增第 8 個方案，三大主題、費率不同：【10%】歡聚微醺（詹記麻辣火鍋、萬客什鍋、海底撈、屋馬燒肉、茶六燒肉堂、碳佐麻里、貳樓、樂子、臺虎精釀、Bar TCRC…餐酒）、日常續命（50嵐、得正、八曜和茶、五桐號、龜記、茶之魔手、CAFE!N、%Arabica、COMPOSE COFFEE…飲料）；【5%】約會犒賞（饗饗、INPARADISE、NAGOMI）、應援追星（WEVERSE、五大唱片、FANME…）、熬夜追更（巴哈姆特、BOOK WALKER、Animate、樂天KOBO、Readmoo、Netflix、Disney+、愛奇藝）、營養補給（好好生醫、好在乎、VITABOX、MYPROTEIN…）、體態養成（Anytime Fitness、健身工廠、World Gym、KX PILATES…）、運動品牌（Adidas、New Balance、PUMA、Onitsuka Tiger、Nike、HOKA、Salomon、lululemon）；【3.3%】數位外掛（Apple 直營含官網、Studio A、DJI、Insta360、GoPro、蝦皮、淘寶、酷澎、Uber Eats）。限獨立店/臺灣官網，百貨/外送/網購平台/商場/飯店不加碼；限實體卡／LINE Pay／台新Pay／Apple／Google／Samsung Pay。需切「Chill刷」' },
         { scene:'Pay著刷（台新Pay/台新Pay+/LINE Pay綁定）', display:'最高 3.8%', value:3.8, cap:'加碼上限＝信用額度+30 萬（實質無上限）；需 Lv2', note:'台新Pay／台新Pay+ 綁定 3.8%（全家、7-11、新光三越、康是美、IKEA、NET、神腦、燦坤、全國電子、麥當勞、美廉社、大樹藥局…；日韓 LAWSON/BicCamera/GS25/DAISO 再免 1.5% 手續費）；LINE Pay 綁定 2.3%。需切「Pay著刷」' },
         { scene:'天天刷（超商量販/通勤交通/加油充電/藥妝藥局）', display:'最高 3.3%', value:3.3, cap:'加碼上限＝額度+30 萬；需 Lv2', note:'超商量販：全家/7-11(限台新Pay)、家樂福、大買家、唐吉訶德、LOPIA；通勤交通：臺鐵、高鐵、台灣大車隊、LINEGO、Yoxi、Uber、台灣Bolt；加油充電：中油直營、全國加油、源點EVOASIS、華城EVALUE、USPACE、車麻吉；藥妝藥局：寶雅、康是美、屈臣氏、杏一、大樹、丁丁、佑全、健康人生。需切「天天刷」' },
         { scene:'大筆刷（指定百貨/Outlet/居家裝修/時尚品味）', display:'最高 3.3%', value:3.3, cap:'加碼上限＝額度+30 萬；需 Lv2', note:'百貨：新光三越(含 skm pay)、遠東百貨/SOGO、漢神/漢神巨蛋、微風、台北 101、遠東巨城、廣三SOGO、南紡、誠品生活、京站、三創、夢時代、統一時代、中友、LaLaport；Outlet：MITSUI OUTLET(林口/台中港/台南)、華泰名品城、SKM Park；居家：IKEA、特力屋、HOLA、宜得利、瑪黑家居；時尚：UNIQLO、GU、ZARA、NET、lululemon。需切「大筆刷」' },
