@@ -19,6 +19,16 @@
       border-radius: 12px; background: #fff; color: #1c2333; margin-bottom: 4px;
     }
     .search-box:focus { outline: none; border-color: #1f6feb; }
+    .search-wrap { position: relative; }
+    .suggest {
+      position: absolute; left: 0; right: 0; top: 100%; z-index: 30;
+      background: #fff; border: 1px solid #d8dee9; border-radius: 12px; margin-top: 2px;
+      box-shadow: 0 6px 18px rgba(16,24,40,.12); overflow: hidden; max-height: 300px; overflow-y: auto;
+    }
+    .suggest-item { padding: 11px 14px; font-size: 15px; cursor: pointer; border-bottom: 1px solid #f1f4f9; }
+    .suggest-item:last-child { border-bottom: none; }
+    .suggest-item:hover, .suggest-item.active { background: #eef4ff; }
+    .suggest-item .tag { font-size: 11.5px; color: #6b7280; margin-left: 6px; }
     .search-group { margin-bottom: 18px; }
     .group-title { font-size: 14px; font-weight: 700; color: #334155; margin: 14px 0 8px; }
     .or-divider { text-align: center; color: #aab2c0; font-size: 12px; margin: 16px 0 6px; }
@@ -66,8 +76,12 @@
   <h1>💳 信用卡回饋查詢</h1>
   <div class="subtitle">選情境查詢，或直接搜尋店家／通路關鍵字</div>
 
-  <input id="search" class="search-box" type="text" autocomplete="off"
-         placeholder="🔍 搜尋：藥妝、唐吉訶德、LINE、Suica、UNIQLO…" oninput="onSearch(this.value)">
+  <div class="search-wrap">
+    <input id="search" class="search-box" type="text" autocomplete="off"
+           placeholder="🔍 搜尋：藥妝、唐吉訶德、LINE、Suica、UNIQLO…"
+           oninput="onSearch(this.value)" onkeydown="onSearchKey(event)" onblur="hideSuggest()">
+    <div id="suggest"></div>
+  </div>
   <div id="searchResults"></div>
 
   <div id="app"></div>
@@ -83,6 +97,7 @@
       { scenario:'行動支付', channel:'LINE Pay', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'需在玉山 Wallet 升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給 LINE Pay；基本 1% 無上限', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'LINE Pay', card:'台新 Richart', display:'最高 3.8%（LEVEL2）', value:3.8, cap:'依方案', note:'需領券，LINE Pay 領券版最高 2.3%；新戶 60 天內享 LEVEL2 3.8%', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'LINE Pay', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）；自動加值另計 3%（每期刷 3,333 元）', note:'需大戶等級＋綁指定任務即達；免切換', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'LINE Pay', card:'中信 LINE Pay卡', display:'1%（指定通路另有加碼）', value:1.0, cap:'一般消費 1% 無上限；指定通路加碼各有期間與上限', note:'LINE Pay 聯名卡，但綁 LINE Pay 一般消費就是 1%（不是最高的）；真正高回饋在官網「六大生活圈」指定通路活動（最高 16%，需個別登錄）。⚠️ 分期交易無回饋', updated:'2026-07-10' },
 
       { scenario:'行動支付', channel:'街口支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給街口；基本 1% 無上限', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'街口支付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級＋綁指定任務；免切換', updated:'2026-06-07' },
@@ -146,6 +161,7 @@
       { scenario:'日本消費', channel:'無腦刷／全日本通用（不分店家）', card:'永豐大戶卡', display:'國外 4.5%（無腦）', value:4.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'免特店、免想；大戶等級＋綁指定任務即達', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／全日本通用（不分店家）', card:'台新 Richart', display:'海外 3.3% 無上限', value:3.3, cap:'無上限', note:'需切「玩旅刷」模式', updated:'2026-06-07' },
       { scenario:'日本消費', channel:'無腦刷／全日本通用（不分店家）', card:'國泰 CUBE', display:'海外 3% 無上限', value:3.0, cap:'無上限', note:'需切「趣旅行/海外」', updated:'2026-06-07' },
+      { scenario:'日本消費', channel:'無腦刷／全日本通用（不分店家）', card:'中信 LINE Pay卡', display:'2.8% 無上限（登錄可到 5%）', value:2.8, cap:'2.8% 免登錄無上限；「海外實體週週登」加碼到 5% 需登錄，每週二開放 3,000 名額（2026/7/1~9/30）', note:'免切換、免特店的海外保底，日本實體店一律 2.8%（另計 1.5% 國外交易服務費）；搶到週週登錄名額可到 5%', updated:'2026-07-10' },
       { scenario:'日本消費', channel:'無腦刷／全日本通用（不分店家）', card:'永豐Sport卡', display:'5% 豐點（淨約 3.5%）', value:3.5, cap:'指定支付 +3% 上限 300 豐點/月（約刷 10,000 元）；運動 +1% 上限 50 豐點/月；基礎 1% 無上限', note:'日本用 Apple/Google/Samsung/Garmin Pay 綁 SPORT 卡：1%+1%+3%=5% 豐點，但海外要收 1.5% 手續費、淨約 3.5%。須當月運動達 10,000 大卡或 Apple Watch 畫圈 10 次＋設定永豐自動扣繳', updated:'2026-06-09' },
 
       { scenario:'日本消費', channel:'日本 PayPay（當地行動支付）', card:'台新 Richart（台新Pay+）', display:'3.8%（≈5.3%）', value:3.8, cap:'單筆上限 NT$50,000；3.8% 無月上限（Pay著刷加碼上限＝額度+30 萬）＋免 1.5% 手續費', note:'台新Pay+ 綁 Richart 切「Pay著刷」，日本 PayPay／韓國 Hana Pay 3.8% + 免 1.5% 手續費 ≈ 實質 5.3%；大額較有利', updated:'2026-06-09' },
@@ -153,7 +169,7 @@
     ];
 
     // ====== 卡片模式資料（依卡片查；對應 Google Sheet「卡片權益」分頁）======
-    var CARDS_ORDER = ['玉山 Unicard','永豐大戶卡','永豐幣倍卡(日幣)','玉山熊本熊卡','聯邦吉鶴卡','中信 Uniopen','永豐Sport卡','聯邦幸福M卡','國泰 CUBE','台新 Richart'];
+    var CARDS_ORDER = ['玉山 Unicard','永豐大戶卡','永豐幣倍卡(日幣)','玉山熊本熊卡','聯邦吉鶴卡','中信 Uniopen','中信 LINE Pay卡','永豐Sport卡','聯邦幸福M卡','國泰 CUBE','台新 Richart'];
     // 切權益／有前提的卡：顯示提醒
     var SWITCH_CARDS = {
       '玉山 Unicard': '回饋分 UP選(4.5%)／任意選(3.5%)／簡單選(3%)，UP選需每月 149 玉山 e-point 訂閱',
@@ -200,6 +216,13 @@
         { scene:'國外消費（海外實體）', display:'最高 11%', value:11.0, cap:'海外加碼上限 500 點/月（約刷 6,250 元內）', note:'3% 無上限 + 海外加碼 8%；加碼歸戶每月上限 500 點，當月累積刷約 6,250 元內 11%，累積超過只有 3%（是單月累積、非單筆限制）。⚠️ 11% 國外加碼僅 2026/7/1~8/31，9 月起國外實體回 3%、國外一般回 1%' },
         { scene:'統一集團通路（7-11/星巴克/家樂福/康是美…）', display:'最高 11%', value:11.0, cap:'OPENPOINT；上限依活動', note:'統一企業集團指定品牌' },
         { scene:'icash Pay 綁卡', display:'4% + 自動加值 10%', value:4.0, cap:'自動加值 150 點/月', note:'需綁 icash Pay' }
+      ],
+      '中信 LINE Pay卡': [
+        { scene:'指定通路加碼（六大生活圈）', display:'最高 16%', value:16.0, cap:'各活動各自有期間與每月／每筆上限（多數需登錄、部分限量或限單筆滿額）', note:'官網「脆饗食／脆好購／脆時尚／脆萌寵／脆慢活／脆自遊」六大生活圈輪替活動，各通路％與條件都不同（例：屈臣氏、大樹、KKBOX、Klook…）。16% 是活動疊加後的天花板，非日常一般回饋 → 刷之前先查官網活動頁' },
+        { scene:'海外實體消費（週週登錄加碼）', display:'5%（需登錄）', value:5.0, cap:'含國外實體 2.8% + 加碼 2.2%；需登錄，每週二開放 3,000 名額；活動期間 2026/7/1~9/30', note:'不限國別，登錄後於國外實體商店消費；名額有限、要搶登錄。未登錄則為 2.8%' },
+        { scene:'國外實體商店（免登錄、無上限）', display:'2.8% 無上限', value:2.8, cap:'無上限（含國內外一般 1% + 國外實體加碼 1.8%）', note:'免登錄、免切換的海外保底；日本實體店刷這張穩定 2.8%（另計 1.5% 國外交易服務費）' },
+        { scene:'一卡通儲值金搭大眾運輸', display:'1% 無上限', value:1.0, cap:'當月累積每滿 NT$100 回饋 1%，無上限；2026/1/1~12/31', note:'需用已綁定的 LINE Pay 卡一卡通功能：捷運輕軌、台鐵、公車客運、公共自行車、渡輪（❌ 高鐵、計程車除外；Hami Pay/Fitbit Pay 等其他行動支付不算）' },
+        { scene:'國內外一般消費', display:'1% 無上限', value:1.0, cap:'無上限', note:'LINE POINTS 回饋；⚠️ 分期交易一律無回饋' }
       ],
       '永豐Sport卡': [
         { scene:'指定行動支付（Apple/Google/Samsung/Garmin Pay）', display:'最高 5%（需運動達標）', value:5.0, cap:'指定支付 +3% 上限 300 豐點/月（約刷 10,000 元）；運動 +1% 上限 50 豐點/月（約刷 5,000 元）；基礎 1% 無上限', note:'須當月運動達 10,000 大卡或 Apple Watch 畫圈 10 次＋設定永豐自動扣繳，否則只有基礎 1%' },
@@ -361,7 +384,7 @@
     function channelsOf(s) { var seen={},list=[]; ALL.forEach(function(r){ if(r.scenario===s&&!seen[r.channel]){seen[r.channel]=1;list.push(r.channel);} }); return list; }
     function scenarios() { var seen={},list=[]; ALL.forEach(function(r){ if(!seen[r.scenario]){seen[r.scenario]=1;list.push(r.scenario);} }); return list; }
     function emojiFor(s){ if(s.indexOf('百大')>-1)return '🏆'; if(s.indexOf('幸福M')>-1)return '🧳'; if(s.indexOf('行動支付')>-1)return '📱'; if(s.indexOf('日本')>-1)return '🗾'; return '💳'; }
-    var CARD_ICONS = { '玉山 Unicard':'🦄', '永豐大戶卡':'💰', '永豐幣倍卡(日幣)':'💴', '玉山熊本熊卡':'🐻', '聯邦吉鶴卡':'🕊️', '中信 Uniopen':'🏪', '永豐Sport卡':'🏃', '聯邦幸福M卡':'Ⓜ️', '國泰 CUBE':'🧊', '台新 Richart':'🐶' };
+    var CARD_ICONS = { '玉山 Unicard':'🦄', '永豐大戶卡':'💰', '永豐幣倍卡(日幣)':'💴', '玉山熊本熊卡':'🐻', '聯邦吉鶴卡':'🕊️', '中信 Uniopen':'🏪', '中信 LINE Pay卡':'💚', '永豐Sport卡':'🏃', '聯邦幸福M卡':'Ⓜ️', '國泰 CUBE':'🧊', '台新 Richart':'🐶' };
     function iconForCard(c){ return CARD_ICONS[c] || '💳'; }
     // 各卡回饋結算週期（上限怎麼重置／回饋何時入帳）
     var CARD_CYCLES = {
@@ -371,6 +394,7 @@
       '玉山熊本熊卡': '依帳單週期（日本加碼上限 500 元/期；PayPay 加碼歸戶每季帳單計）',
       '聯邦吉鶴卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
       '中信 Uniopen': '每月 1 日～月底（日曆月），以「完成請款入帳」的消費計算，上限每月重新計算',
+      '中信 LINE Pay卡': '基本回饋（國內外 1%、國外實體 2.8%）無上限、依消費入帳給 LINE POINTS；一卡通 1% 為當月累積每滿 100 元回饋；各加碼活動另有自己的期間與每月上限（多為日曆月，需個別登錄）',
       '永豐Sport卡': '每月 1 日～月底（日曆月）；回饋於消費「次次月」給豐點（顯示於次次期帳單）',
       '聯邦幸福M卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
       '國泰 CUBE': '即時回饋：刷卡入帳後約 3～5 個工作天給小樹點（主要方案無上限）',
@@ -451,6 +475,7 @@
       '台新 Richart': 'https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/',
       '台新 Richart（台新Pay+）': 'https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/',
       '中信 Uniopen': 'https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_uniopen.html',
+      '中信 LINE Pay卡': 'https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html',
       '聯邦吉鶴卡': 'https://card.ubot.com.tw/CardDetail/cardDetail202',
       '聯邦幸福M卡': 'https://card.ubot.com.tw/CardDetail/cardDetail203',
       '國泰 CUBE': 'https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube'
@@ -483,21 +508,149 @@
       return html;
     }
 
+    // ===== 搜尋強化：同義詞 / 容錯 / 建議清單 =====
+    // 同義詞：使用者可能打的說法 → 對應到資料裡真正的字
+    var SYNONYMS = {
+      '小七':'7-eleven', '7-11':'7-eleven', '711':'7-eleven', '7 11':'7-eleven', 'seven':'7-eleven', '統一超商':'7-eleven',
+      '全家':'familymart', 'family':'familymart', '羅森':'lawson',
+      '西瓜卡':'suica', 'suika':'suica', '交通卡':'suica', 'icoca':'icoca', 'pasmo':'pasmo',
+      '迪士尼':'迪士尼', 'disney':'迪士尼', '狄斯奈':'迪士尼',
+      '環球':'環球影城', 'usj':'環球影城', 'universal':'環球影城',
+      '藥妝':'藥妝', '藥粧':'藥妝', 'drug':'藥妝', '松本':'松本清', 'matsukiyo':'松本清',
+      '唐吉':'唐吉訶德', '唐吉軻德':'唐吉訶德', 'don quijote':'唐吉訶德', 'donki':'唐吉訶德', '驚安':'唐吉訶德',
+      '大國':'大國藥妝', 'daikoku':'大國藥妝', 'sugi':'sugi', 'sundrug':'sundrug',
+      'uniqlo':'uniqlo', '優衣庫':'uniqlo', '優衣褲':'uniqlo', 'ユニクロ':'uniqlo', 'gu':'gu', 'ジーユー':'gu',
+      '無印':'無印良品', 'muji':'無印良品', '無印良品':'無印良品', '良品計画':'無印良品',
+      // 日文店名（在日本看招牌時直接打）
+      'セブン':'7-eleven', 'セブンイレブン':'7-eleven', 'ファミマ':'familymart', 'ファミリーマート':'familymart', 'ローソン':'lawson',
+      'ドンキ':'唐吉訶德', 'ドン・キホーテ':'唐吉訶德', 'マツキヨ':'松本清', 'マツモトキヨシ':'松本清', 'ダイコク':'大國藥妝',
+      'ビックカメラ':'bic camera', 'ヨドバシ':'yodobashi', 'すき家':'sukiya', '松屋':'松屋', '一蘭':'一蘭',
+      'スシロー':'壽司郎', 'くら寿司':'藏壽司', '牛角':'牛角', 'ドトール':'doutor',
+      'ららぽーと':'lalaport', 'モンベル':'montbell', 'イオン':'永旺', '東横イン':'東橫inn', '星野':'星野',
+      'bic':'bic camera', 'biccamera':'bic camera', '必酷':'bic camera', 'yodobashi':'yodobashi', '友都八喜':'yodobashi',
+      '一蘭':'一蘭', 'ichiran':'一蘭', '壽司郎':'壽司郎', 'sushiro':'壽司郎', '藏壽司':'藏壽司', 'kura':'藏壽司',
+      '燒肉':'燒肉', '敘敘苑':'敘敘苑', '牛角':'牛角',
+      'paypay':'paypay', 'pay pay':'paypay', '拍拍':'paypay',
+      'line':'line pay', 'linepay':'line pay', 'line pay':'line pay', '賴':'line pay',
+      '街口':'街口', '全支付':'全支付', '全盈':'全盈', '悠遊':'悠遊', '一卡通':'ipass',
+      'apple':'apple pay', 'applepay':'apple pay', '蘋果':'apple pay', 'google':'google pay', 'googlepay':'google pay',
+      '三星':'samsung pay', 'samsung':'samsung pay', 'garmin':'garmin pay',
+      '玉山':'玉山', 'esun':'玉山', '熊本':'熊本熊', '熊本熊':'熊本熊', 'kumamon':'熊本熊',
+      // 中信 LINE Pay 卡（熊大＝LINE 布朗熊，非熊本熊）
+      '熊大':'line pay卡', '布朗熊':'line pay卡', 'brown':'line pay卡', '兔兔':'line pay卡', 'cony':'line pay卡',
+      'linepay卡':'line pay卡', 'line pay卡':'line pay卡', 'line卡':'line pay卡', 'line points':'line pay卡',
+      'linepoints':'line pay卡', 'lp':'line pay卡', '中信line':'line pay卡',
+      'unicard':'unicard', '獨角獸':'unicard',
+      '永豐':'永豐', 'sinopac':'永豐', '大戶':'大戶', 'dawho':'大戶', '幣倍':'幣倍', 'sport':'sport',
+      '聯邦':'聯邦', 'ubot':'聯邦', '吉鶴':'吉鶴', '幸福m':'幸福m', 'm卡':'幸福m',
+      '中信':'uniopen', '中國信託':'uniopen', 'ctbc':'uniopen', 'uniopen':'uniopen', 'openpoint':'uniopen',
+      '國泰':'cube', 'cathay':'cube', 'cube':'cube', '小樹點':'cube',
+      '台新':'richart', 'taishin':'richart', 'richart':'richart', '理查':'richart',
+      '日本':'日本', 'japan':'日本', '日幣':'日本', '東京':'日本', '大阪':'日本', '京都':'日本', '北海道':'日本',
+      '便利商店':'便利商店', '超商':'便利商店', '超市':'超市',
+      '百貨':'百貨', 'outlet':'outlet', '樂園':'樂園', '租車':'租車', '飯店':'飯店', '訂房':'訂房',
+      '機票':'機票', '航空':'航空', '交通':'交通', '餐廳':'餐飲', '吃飯':'餐飲', '美食':'餐飲',
+      '行動支付':'行動支付', '手機支付':'行動支付', '嗶':'行動支付'
+    };
+    // 正規化：全形→半形、大小寫、去空白
+    function normKey(s) {
+      return String(s || '')
+        .replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+        .toLowerCase().replace(/\s+/g, ' ').trim();
+    }
+    // 由使用者輸入產生「要比對的關鍵字清單」（原字＋同義詞）
+    function expandKeys(q) {
+      var k = normKey(q);
+      if (!k) return [];
+      var keys = [k];
+      if (SYNONYMS[k] && keys.indexOf(SYNONYMS[k]) < 0) keys.push(SYNONYMS[k]);
+      // 輸入是某個同義詞的前綴時也一併帶入（例：打「唐」→ 唐吉訶德）
+      Object.keys(SYNONYMS).forEach(function (syn) {
+        if (syn.indexOf(k) === 0 && keys.indexOf(SYNONYMS[syn]) < 0) keys.push(SYNONYMS[syn]);
+      });
+      return keys;
+    }
+    // 一段文字是否命中任一關鍵字
+    function hitAny(text, keys) {
+      var t = normKey(text);
+      for (var i = 0; i < keys.length; i++) if (t.indexOf(keys[i]) > -1) return true;
+      return false;
+    }
+    // 建議清單來源：所有店家、通路、卡名（去重）
+    var SUGGEST_POOL = (function () {
+      var seen = {}, list = [];
+      function add(label, tag) { var k = label + '|' + tag; if (label && !seen[k]) { seen[k] = 1; list.push({ label: label, tag: tag }); } }
+      Object.keys(STORES).forEach(function (cat) { STORES[cat].forEach(function (s) { add(s, '店家'); }); });
+      ALL.forEach(function (r) { add(r.channel, '通路'); });
+      CARDS_ORDER.forEach(function (c) { add(c, '卡片'); });
+      return list;
+    })();
+    var suggestItems = [], suggestIdx = -1;
+    function renderSuggest(q) {
+      var box = document.getElementById('suggest'); if (!box) return;
+      var keys = expandKeys(q);
+      if (!keys.length) { box.innerHTML = ''; suggestItems = []; suggestIdx = -1; return; }
+      suggestItems = SUGGEST_POOL.filter(function (it) { return hitAny(it.label, keys); }).slice(0, 8);
+      suggestIdx = -1;
+      if (!suggestItems.length) { box.innerHTML = ''; return; }
+      var html = '<div class="suggest">';
+      suggestItems.forEach(function (it, i) {
+        html += '<div class="suggest-item" data-i="' + i + '" onmousedown="pickSuggest(' + i + ')">' +
+                escHtml(it.label) + '<span class="tag">' + it.tag + '</span></div>';
+      });
+      box.innerHTML = html + '</div>';
+    }
+    function hideSuggest() { setTimeout(function () { var b = document.getElementById('suggest'); if (b) b.innerHTML = ''; suggestItems = []; suggestIdx = -1; }, 120); }
+    function pickSuggest(i) {
+      var it = suggestItems[i]; if (!it) return;
+      var input = document.getElementById('search');
+      input.value = it.label;
+      var b = document.getElementById('suggest'); if (b) b.innerHTML = '';
+      suggestItems = []; suggestIdx = -1;
+      onSearch(it.label, true);
+    }
+    function onSearchKey(e) {
+      if (!suggestItems.length) return;
+      var box = document.getElementById('suggest');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        suggestIdx += (e.key === 'ArrowDown' ? 1 : -1);
+        if (suggestIdx < 0) suggestIdx = suggestItems.length - 1;
+        if (suggestIdx >= suggestItems.length) suggestIdx = 0;
+        var els = box.querySelectorAll('.suggest-item');
+        for (var i = 0; i < els.length; i++) els[i].className = 'suggest-item' + (i === suggestIdx ? ' active' : '');
+      } else if (e.key === 'Enter') {
+        if (suggestIdx >= 0) { e.preventDefault(); pickSuggest(suggestIdx); }
+        else { if (box) box.innerHTML = ''; suggestItems = []; }
+      } else if (e.key === 'Escape') {
+        if (box) box.innerHTML = ''; suggestItems = []; suggestIdx = -1;
+      }
+    }
+
     // 搜尋：打關鍵字 → 找符合的通路/店家，依通路分組顯示最高回饋
-    function onSearch(q) {
+    function onSearch(q, fromPick) {
       curSearch = q;
       var box = document.getElementById('searchResults');
       var app = document.getElementById('app');
-      var key = q.trim().toLowerCase();
-      if (!key) { box.innerHTML = ''; if (app) app.style.display = ''; return; }
+      var keys = expandKeys(q);
+      if (!fromPick) renderSuggest(q);
+      if (!keys.length) { box.innerHTML = ''; if (app) app.style.display = ''; return; }
       if (app) app.style.display = 'none';
       var matches = ALL.filter(function (r) {
-        return (r.scenario + ' ' + r.channel + ' ' + r.card + ' ' + r.note).toLowerCase().indexOf(key) > -1;
+        return hitAny(r.scenario + ' ' + r.channel + ' ' + r.card + ' ' + r.note, keys);
+      });
+      // 逐店資料（第三層）：讓「大國藥妝」「Montbell」等店名也搜得到
+      Object.keys(STORE_CARDS).forEach(function (k) {
+        var p = k.split('|');
+        if (!hitAny(p[1], keys)) return;
+        STORE_CARDS[k].forEach(function (r) {
+          matches.push({ scenario: '日本消費', channel: p[0] + ' → ' + p[1], card: r.card, display: r.display, value: r.value, cap: r.cap, note: r.note });
+        });
       });
       var cardMatches = [];
       CARDS_ORDER.forEach(function (c) {
         (CARD_BENEFITS[c] || []).forEach(function (r) {
-          if ((c + ' ' + r.scene + ' ' + r.note).toLowerCase().indexOf(key) > -1)
+          if (hitAny(c + ' ' + r.scene + ' ' + r.note, keys))
             cardMatches.push({ card: c, scene: r.scene, display: r.display, value: r.value, cap: r.cap, note: r.note });
         });
       });
