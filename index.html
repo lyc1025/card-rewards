@@ -101,6 +101,9 @@
 
       { scenario:'行動支付', channel:'街口支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）並把名額留給街口；基本 1% 無上限', updated:'2026-06-07' },
       { scenario:'行動支付', channel:'街口支付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級＋綁指定任務；免切換', updated:'2026-06-07' },
+      { scenario:'行動支付', channel:'悠遊付', card:'永豐 Green卡', display:'5%', value:5.0, cap:'基本 1% + 綠色通路加碼 4%；加碼上限每期帳單 300 元（約刷 7,500 元封頂）', note:'悠遊付屬 Green 卡「綠色支付」通路；須電子／行動帳單＋永豐／京城帳戶自動扣繳，否則只有 1%', updated:'2026-10-31' },
+      { scenario:'行動支付', channel:'悠遊付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'悠遊付在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）。量大（月刷 7,500 元以上）時 Unicard 上限較高', updated:'2026-10-31' },
+      { scenario:'行動支付', channel:'悠遊付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級＋綁指定任務；免切換', updated:'2026-10-31' },
 
       { scenario:'行動支付', channel:'全支付', card:'玉山 Unicard', display:'最高 4.5%（需 UP選）', value:4.5, cap:'UP選加碼上限 5,000 點/月（約刷 142,857 元）；任意選 3.5%（加碼上限 1,000 點/月，約刷 40,000 元）', note:'全支付在百大加碼通路內；需升級「UP選」（每月 149 玉山 e-point 訂閱或完成任務；任意選只有 3.5%）。⭐ 全支付平台另疊加 3% 全點（全聯/大全聯以外通路，2026/6/29~12/31），與 Unicard 回饋合計約 7.5%', updated:'2026-06-29' },
       { scenario:'行動支付', channel:'全支付', card:'永豐大戶卡', display:'國內 3.5%（無腦）', value:3.5, cap:'加碼 2.5%，回饋上限 NT$400/月帳單週期（約刷 16,000 元封頂）', note:'需大戶等級；免切換', updated:'2026-06-07' },
@@ -169,10 +172,13 @@
     ];
 
     // ====== 卡片模式資料（依卡片查；對應 Google Sheet「卡片權益」分頁）======
-    var CARDS_ORDER = ['玉山 Unicard','永豐大戶卡','永豐幣倍卡(日幣)','玉山熊本熊卡','聯邦吉鶴卡','中信 Uniopen','中信 LINE Pay卡','永豐Sport卡','聯邦幸福M卡','國泰 CUBE','台新 Richart'];
+    // 依銀行分組：玉山 → 永豐 → 中信 → 聯邦 → 國泰 → 台新
+    var CARDS_ORDER = ['玉山 Unicard','玉山熊本熊卡','永豐大戶卡','永豐幣倍卡(日幣)','永豐Sport卡','永豐 Green卡','中信 Uniopen','中信 LINE Pay卡','中信 LaLaport卡','聯邦吉鶴卡','聯邦幸福M卡','國泰 CUBE','台新 Richart'];
     // 切權益／有前提的卡：顯示提醒
     var SWITCH_CARDS = {
       '玉山 Unicard': '回饋分 UP選(4.5%)／任意選(3.5%)／簡單選(3%)，UP選需每月 149 玉山 e-point 訂閱',
+      '永豐 Green卡': '⚙️ 綠色通路 5% 的前提：帳單改電子／行動帳單＋設定永豐／京城帳戶自動扣繳永豐卡費，兩項都要，否則只有基本 1%。加碼 4% 上限每期帳單 300 元（約刷 7,500 元封頂）',
+      '中信 LaLaport卡': '🅿️ LaLaport 館內汽機車免費停車 2 小時（每卡每日 1 次，離場前要到繳費機過卡折抵）；館內指定品牌 9 折起（是折扣、不是點數回饋）。點數只能在館內用實體卡折抵，GU／UNIQLO／LOPIA／無印良品／大創／7-11／星巴克等店不配合折抵；用 Mitsui Shopping Park Pay 付款不享館內加碼',
       '聯邦幸福M卡': '須申辦電子化帳單才有完整回饋；五大場景共用月上限 300 元',
       '中信 Uniopen': '✅ 加碼活動已延長：新活動期間 2026/9/1~12/31（國外實體加碼 8%→最高 11%、統一集團 2%、踩點加碼、icash Pay 4% 全數續辦）。滿 199 低消門檻同時適用兩處：統一集團踩點（每月不同品牌、每家單筆滿 199，2~5 家加 1~4%，上限 500 點/月）與 icash Pay 指定店（單筆滿 199 +4%，上限 150 點/月）',
       '國泰 CUBE': '⚙️ 切權益卡：每日可免費切換 1 次方案（當日 0 時起生效）。預設你的等級 Lv2（CUBE App 繳卡費/自動扣繳）→ 指定方案 3%（Lv3 財管貴賓才 3.3%）',
@@ -224,10 +230,23 @@
         { scene:'一卡通儲值金搭大眾運輸', display:'1% 無上限', value:1.0, cap:'當月累積每滿 NT$100 回饋 1%，無上限；2026/1/1~12/31', note:'需用已綁定的 LINE Pay 卡一卡通功能：捷運輕軌、台鐵、公車客運、公共自行車、渡輪（❌ 高鐵、計程車除外；Hami Pay/Fitbit Pay 等其他行動支付不算）' },
         { scene:'國內外一般消費', display:'1% 無上限', value:1.0, cap:'無上限', note:'LINE POINTS 回饋；⚠️ 分期交易一律無回饋' }
       ],
+      '中信 LaLaport卡': [
+        { scene:'LaLaport 館內・生日當月（全館）', display:'6%', value:6.0, cap:'館內 0.8% + 加碼 5.2%；加碼上限 500 點/月（正附卡合併、以入帳日計，約刷 9,600 元）', note:'生日當月在 LaLaport 館內消費全館 6%（正、附卡各自生日月，加碼上限合併）。與餐飲/超市重疊時取較高者。館內＝開立「三中東區啦啦寶都」（台中）或「台灣三井不動產南港分公司」（南港）發票的店。2026/1/1~12/31' },
+        { scene:'LaLaport 館內・餐飲', display:'4%', value:4.0, cap:'館內 0.8% + 加碼 3.2%；加碼上限 500 點/月（約刷 15,600 元）', note:'館內餐廳消費；限實體卡或 Apple Pay／Google Pay 綁本卡，Mitsui Shopping Park Pay 不享加碼' },
+        { scene:'LaLaport 館內・超市（LOPIA）', display:'2%', value:2.0, cap:'館內 0.8% + 加碼 1.2%；加碼上限 500 點/月', note:'限開立「日商樂比亞 LaLaPort 台中店／南港店」發票的 LOPIA 館內超市' },
+        { scene:'國外消費（限 JCB 卡）', display:'2%（含免手續費 1.5%）', value:2.0, cap:'館外 0.5% 點數 + 國外交易免手續費 1.5%；單筆滿 NT$100', note:'2% 是「0.5% 回饋 + 省下 1.5% 國外手續費」的等值，不是點數 2%；只有 JCB 卡別適用，Visa／Mastercard 國外只有 0.5% 且照收手續費' },
+        { scene:'LaLaport 館內一般消費', display:'0.8% 無上限', value:0.8, cap:'無上限', note:'館內非餐飲/超市/生日月的一般消費' },
+        { scene:'館外一般消費', display:'0.5% 無上限', value:0.5, cap:'無上限', note:'中信點 1 點＝1 元，但只能在 LaLaport 館內用實體卡折抵；點數效期 24 個月' }
+      ],
       '永豐Sport卡': [
         { scene:'指定行動支付（Apple/Google/Samsung/Garmin Pay）', display:'最高 5%（需運動達標）', value:5.0, cap:'指定支付 +3% 上限 300 豐點/月（約刷 10,000 元）；運動 +1% 上限 50 豐點/月（約刷 5,000 元）；基礎 1% 無上限', note:'須當月運動達 10,000 大卡或 Apple Watch 畫圈 10 次＋設定永豐自動扣繳，否則只有基礎 1%' },
         { scene:'App Store / Google Play（指定通路）', display:'最高 5%（需運動達標）', value:5.0, cap:'同上 +3% 上限 300 豐點/月', note:'數位發行平台消費；條件同指定行動支付' },
         { scene:'一般消費（實體刷/未綁指定支付）', display:'最高 2%', value:2.0, cap:'基礎 1% 無上限 + 運動 1% 上限 50 豐點/月', note:'運動達標才有運動獎勵 1%' }
+      ],
+      '永豐 Green卡': [
+        { scene:'精選國內綠色通路（交通/餐飲/健身/電競…）', display:'5%', value:5.0, cap:'基本 1% + 加碼 4%；加碼上限每期帳單 300 元（約刷 7,500 元封頂），超過後 1%', note:'須電子／行動帳單＋永豐／京城帳戶自動扣繳。2026/7/1~12/31（9/1 起新增健身、電競）。綠色交通：臺北／新北／桃園／臺中／高雄捷運、iRent、GoShare、Gogoro Network、WeMo、LINE GO、TESLA 充電、EVOASIS；綠色支付：悠遊付；綠色餐飲：星巴克、路易莎、藏壽司、摩斯、Q burger、麥味登、築間、屋馬…；影城：威秀、新光、喜樂時代；售票：寬宏、KKTIX、拓元、年代；健身：World Gym、健身工廠、Curves、Anytime Fitness、超核心、各市運動中心；電競：App Store、Google Play、Nintendo、PlayStation、Steam、暴雪；3C：全國電子、STUDIO A；綠色生活：家樂福（萬家福／樂家康）、愛買；綠色時尚：UNIQLO、GU、ZARA、H&M、GAP、NET；有機商店：里仁、聖德科斯、主婦聯盟、綠藤、茶籽堂、AESOP…；環保旅店：晶華、捷絲旅、晶英、老爺、福容、國賓、圓山、希爾頓…' },
+        { scene:'國外一般消費', display:'2% 無上限', value:2.0, cap:'無上限', note:'國外現金回饋，無須任務（另計 1.5% 國外交易服務費）' },
+        { scene:'國內一般消費', display:'1% 無上限', value:1.0, cap:'無上限', note:'現金回饋折抵帳單' }
       ],
       '聯邦幸福M卡': [
         { scene:'航空（國內外航空機票）', display:'6%', value:6.0, cap:'五大場景共用月回饋上限 300 元（約刷 5,000 元），達上限後 1%', note:'須電子化帳單。跨 3 場景滿 5,000 元再加碼 250 元 ≈ 最高 11%' },
@@ -384,7 +403,7 @@
     function channelsOf(s) { var seen={},list=[]; ALL.forEach(function(r){ if(r.scenario===s&&!seen[r.channel]){seen[r.channel]=1;list.push(r.channel);} }); return list; }
     function scenarios() { var seen={},list=[]; ALL.forEach(function(r){ if(!seen[r.scenario]){seen[r.scenario]=1;list.push(r.scenario);} }); return list; }
     function emojiFor(s){ if(s.indexOf('百大')>-1)return '🏆'; if(s.indexOf('幸福M')>-1)return '🧳'; if(s.indexOf('行動支付')>-1)return '📱'; if(s.indexOf('日本')>-1)return '🗾'; return '💳'; }
-    var CARD_ICONS = { '玉山 Unicard':'🦄', '永豐大戶卡':'💰', '永豐幣倍卡(日幣)':'💴', '玉山熊本熊卡':'🐻', '聯邦吉鶴卡':'🕊️', '中信 Uniopen':'🏪', '中信 LINE Pay卡':'💚', '永豐Sport卡':'🏃', '聯邦幸福M卡':'Ⓜ️', '國泰 CUBE':'🧊', '台新 Richart':'🐶' };
+    var CARD_ICONS = { '玉山 Unicard':'🦄', '永豐大戶卡':'💰', '永豐幣倍卡(日幣)':'💴', '玉山熊本熊卡':'🐻', '聯邦吉鶴卡':'🕊️', '中信 Uniopen':'🏪', '中信 LINE Pay卡':'💚', '中信 LaLaport卡':'🛍️', '永豐Sport卡':'🏃', '永豐 Green卡':'🌱', '聯邦幸福M卡':'Ⓜ️', '國泰 CUBE':'🧊', '台新 Richart':'🐶' };
     function iconForCard(c){ return CARD_ICONS[c] || '💳'; }
     // 各卡回饋結算週期（上限怎麼重置／回饋何時入帳）
     var CARD_CYCLES = {
@@ -394,6 +413,8 @@
       '玉山熊本熊卡': '依帳單週期（日本加碼上限 500 元/期；PayPay 加碼歸戶每季帳單計）',
       '聯邦吉鶴卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
       '中信 Uniopen': '每月 1 日～月底（日曆月），以「完成請款入帳」的消費計算，上限每月重新計算',
+      '中信 LaLaport卡': '基本回饋（館外 0.5%、館內 0.8%）無上限，消費入帳後 2~3 個工作日給中信點；館內加碼（餐飲/超市/生日月）上限 500 點/月，每月 1 日～月底（日曆月、以入帳日計）',
+      '永豐 Green卡': '依帳單週期（當期帳單消費、次期帳單回饋現金）；綠色通路加碼 4% 上限每期帳單 300 元',
       '中信 LINE Pay卡': '基本回饋（國內外 1%、國外實體 2.8%）無上限、依消費入帳給 LINE POINTS；一卡通 1% 為當月累積每滿 100 元回饋；各加碼活動另有自己的期間與每月上限（多為日曆月，需個別登錄）',
       '永豐Sport卡': '每月 1 日～月底（日曆月）；回饋於消費「次次月」給豐點（顯示於次次期帳單）',
       '聯邦幸福M卡': '每月 1 日～月底（以「入帳日」計），次月 15 日回饋入帳',
@@ -476,6 +497,8 @@
       '台新 Richart（台新Pay+）': 'https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/',
       '中信 Uniopen': 'https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_product/cc_introduction_index/C_uniopen.html',
       '中信 LINE Pay卡': 'https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html',
+      '中信 LaLaport卡': 'https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LaLaport/index.html',
+      '永豐 Green卡': 'https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/cashcard.html',
       '聯邦吉鶴卡': 'https://card.ubot.com.tw/CardDetail/cardDetail202',
       '聯邦幸福M卡': 'https://card.ubot.com.tw/CardDetail/cardDetail203',
       '國泰 CUBE': 'https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube'
@@ -526,7 +549,9 @@
       'ドンキ':'唐吉訶德', 'ドン・キホーテ':'唐吉訶德', 'マツキヨ':'松本清', 'マツモトキヨシ':'松本清', 'ダイコク':'大國藥妝',
       'ビックカメラ':'bic camera', 'ヨドバシ':'yodobashi', 'すき家':'sukiya', '松屋':'松屋', '一蘭':'一蘭',
       'スシロー':'壽司郎', 'くら寿司':'藏壽司', '牛角':'牛角', 'ドトール':'doutor',
-      'ららぽーと':'lalaport', 'モンベル':'montbell', 'イオン':'永旺', '東横イン':'東橫inn', '星野':'星野',
+      'ららぽーと':'lalaport', '啦啦寶都':'lalaport', 'lala':'lalaport', 'lalaport卡':'lalaport卡', '南港lalaport':'lalaport', '台中lalaport':'lalaport',
+      'green卡':'green卡', 'green':'green卡', '綠卡':'green卡', '永豐green':'green卡', '綠色通路':'green卡', '捷運':'捷運',
+      'モンベル':'montbell', 'イオン':'永旺', '東横イン':'東橫inn', '星野':'星野',
       'bic':'bic camera', 'biccamera':'bic camera', '必酷':'bic camera', 'yodobashi':'yodobashi', '友都八喜':'yodobashi',
       '一蘭':'一蘭', 'ichiran':'一蘭', '壽司郎':'壽司郎', 'sushiro':'壽司郎', '藏壽司':'藏壽司', 'kura':'藏壽司',
       '燒肉':'燒肉', '敘敘苑':'敘敘苑', '牛角':'牛角',
